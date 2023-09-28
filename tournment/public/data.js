@@ -13,16 +13,16 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let player = {
-    user_name: String,
-    first_name: String, 
-    last_name: String
-};
-
 function createPlayer(){
-  player.user_name = $('user_name').value();
-  player.first_name = $('first_name').value();
-  player.last_name = $('last_name').value();
+  let player = {
+    user_name: "",
+    first_name: "", 
+    last_name: ""
+  }; 
+
+  player.user_name = $('#user_name').val();
+  player.first_name = $('#first_name').val();
+  player.last_name = $('#last_name').val();
   //creating new entries
   firebase.database().ref("/players").push(player);
 }
