@@ -16,14 +16,19 @@
         to avoid connecting the SDK to running emulators.
       -->
   <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script src="data.js"></script>
   <div>
     <title>Tourment Maker</title>
     <h1>Welcome to the Cage. Many come in and only 1 leaves</h1>
   </div>
   <div>
-    <input id="username" placeholder="Enter Username">
+    <input id="user_name" placeholder="Enter Username">
     <br>
-    <button id="submit">Submit</button>
+    <input id="first_name" placeholder="Enter Firstname">
+    <br>
+    <input id="last_name" placeholder="Enter Last">
+    <br>
+    <button id="submit" onClick="createPlayer()">Submit</button>
   </div>
 </body>
 </head>
