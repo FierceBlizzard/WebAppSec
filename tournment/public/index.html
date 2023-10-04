@@ -2,26 +2,31 @@
 <html>
 
 <head>
-
-<body>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <div>
-    <title>Tourment Maker</title>
-    <h1>Welcome to the Cage. Many come in and only 1 leaves</h1>
-  </div>
-  <div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-app-compat.js"></script>
-    <script type="module" src="./data.js"></script>
-    <input id="user_name" placeholder="Enter Username">
-    <br>
-    <input id="first_name" placeholder="Enter Firstname">
-    <br>
-    <input id="last_name" placeholder="Enter Last">
-    <br>
-    <button id="submit" src="./data.js" onclick="createPlayer()">Submit</button>
+  <title>Welcome to Firebase Hosting</title>
+  <!-- include only the Firebase features as you need -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-app-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-auth-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-database-compat.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="./auth.js"></script>
+
+  <style media="screen" src="../style/style.css"></style>
+</head>
+
+<body>
+  <div id="message">
+    <h2>Welcome</h2>
+    <h1 id="login-header">Login</h1>
+    
+    <form id="sign-up-form">
+      <p>Welcome New User</p>
+      <input type="text" name="email" id="email-field" class="login-form-field" placeholder="email">
+      <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+      <input type="submit" value="submit" id="sign-up-form-submit">
+    </form>
   </div>
 </body>
-</head>
 
 </html>
