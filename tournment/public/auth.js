@@ -14,6 +14,20 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+/**
+ * The code below is creating the form to sign up with email and passw
+ */
+
+const form = document.createElement("form");
+form.id = "sign-up";
+form.innerHTML = `<form id="sign-up-form">
+<p>Welcome New User</p>
+<input type="text" name="email" id="email-field" class="login-form-field" placeholder="email">
+<input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+<input type="submit" value="submit" id="sign-up-form-submit">
+</form>`;
+$('#magic').appendChild(form);
+
 //This is all for login form
 var visibility = function(show_sign_up){
   if(show_sign_up){
@@ -23,6 +37,7 @@ var visibility = function(show_sign_up){
   }
   console.log("Testing");
 };
+
 var createAccount = function(){
   let email = $('#email-field').val();
   let password = $('#password-field').val();
