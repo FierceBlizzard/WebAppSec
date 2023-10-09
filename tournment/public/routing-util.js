@@ -1,0 +1,1 @@
+export let clearPageView = () => document.querySelector("#magic").innerHTML = "";

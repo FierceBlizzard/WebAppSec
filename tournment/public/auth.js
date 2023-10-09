@@ -1,23 +1,4 @@
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://firebase.google.com/docs/web/learn-more#config-object
-const firebaseConfig = {
-  apiKey: "AIzaSyAgxShC0CFMog7mDRn7U7zp9YyPFJjm9LA",
-  authDomain: "tournment-b5ea5.firebaseapp.com",
-  databaseURL: "https://tournment-b5ea5-default-rtdb.firebaseio.com",
-  projectId: "tournment-b5ea5",
-  storageBucket: "tournment-b5ea5.appspot.com",
-  messagingSenderId: "453497938659",
-  appId: "1:453497938659:web:07123d26dbb7c823fadbd6",
-  measurementId: "G-VRVKVYJBPX"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-/**
- * The code below is creating the form to sign up with email and passw
- */
-
+// Rendering the sign up form
 const form = document.createElement("form");
 form.id = "sign-up";
 form.innerHTML = `<form id="sign-up-form">
@@ -27,16 +8,6 @@ form.innerHTML = `<form id="sign-up-form">
 <input type="submit" value="submit" id="sign-up-form-submit">
 </form>`;
 $('#magic').appendChild(form);
-
-//This is all for login form
-var visibility = function(show_sign_up){
-  if(show_sign_up){
-    $('#sign-up-form').css('visibility', 'visible');
-  }else{
-    $('#sign-up-form').css('visibility', 'hidden');
-  }
-  console.log("Testing");
-};
 
 var createAccount = function(){
   let email = $('#email-field').val();
@@ -53,9 +24,12 @@ var createAccount = function(){
     });
   console.log(email);
   console.log(password);
-  visibility(false);
 };
-$('#new-user').on('click', visibility(true));
 
 //This section of code is for creating new users
 $('#sign-up-form').on('click',createAccount);
+
+//log in 
+let renderLgin = () =>{
+
+};
