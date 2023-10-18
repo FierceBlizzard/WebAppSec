@@ -1,9 +1,11 @@
-import { getLogin } from "./auth";
+/**
+ * import { getLogin } from "./auth";
 import { createTournament, renderTournamentList } from "./tournament-maker";
 import { renderTournament } from "./tournamentView";
+*/
+//export let clearPageView = () => $("#magic").innerHTML = "";
 
-export let clearPageView = () => $("#magic").innerHTML = "";
-
+/** 
 const url_routes = {
     login: (url) => /^\/login$/.test(url),
     create_tournament: (url) => /^\/tournaments\/create$/.test(url),
@@ -13,10 +15,7 @@ const url_routes = {
 
 async function renderHome(){
     // Button to make a tournament
-    const button = document.createElement("Button");
-    button.id = "create-tournament";
-    button.innerHTML = `<Button id="create-tournament">Create Tournament</Button>`;
-    $("#magic").appendChild(button);
+    $("#magic").innerHTML = `<Button id="create-tournament">Create Tournament</Button>`;
     $("#magic-header").textContent = "Home";
     $("#create-button").on("click", createTournament);
     renderTournamentList();
@@ -39,41 +38,50 @@ export function renderLogin(){
         );
     });
 }
-
+*/
 /**
  * Change the URL to the path and adds to history so you can go back
  */
-export let pushUrl = (path) => history.pushState(path, "", path);
+//export let pushUrl = (path) => history.pushState(path, "", path);
 
 /**
  * Changes the url to the given path but not added to browser history
  */
-export let replaceUrl = (path) => history.replaceState(path, "", path);
+//export let replaceUrl = (path) => history.replaceState(path, "", path);
 
 /**
  * Handles routing by checking the current URL path and loading the proper elements
  */
-export function routeUrl(){
-    const path = document.location.pathname;
-    clearPageView();
 
-    if(url_routes.login(path)){
-        renderLogin();
-    } else if (url_routes.create_tournament(path)){
-        createTournament();
-    } else if (url_routes.tournament(path)){
-        const id = path.split("/")[2];
-        renderTournament(id);
-    } else if (url_routes.tournament_list(path)){
-        renderTournamentList();
+
+function routeUrl() {
+    const url = document.location.pathname;
+
+    console.log(url);
+
+    if (url.includes("/login")) {
+        console.log("Login works");
+        // Perform actions for the login route.
+    } else if (url.includes("/create_tournament")) {
+        console.log("create tournament works");
+        // Perform actions for the create tournament route.
+    } else if (url.includes("/tournament")) {
+        console.log("tournament works");
+        //const id = url.split("/")[2];
+        //renderTournament(id);
     } else {
-        replaceUrl("/home");
-        renderHome();
+        console.log("home works");
+        // Perform actions for the home route.
     }
 }
 
-addEventListener("DOMContentLoaded", routeUrl);
-addEventListener("popstate", ()=> {
-    if(!firebase.auth.currentUser) replaceUrl("/login");
+addEventListener("DOMContentLoaded", () => {
+    console.log("content loader works before");
+    routeUrl();
+    console.log("content loader works after");
+});
+
+addEventListener("popstate", () => {
+    console.log("popstate works");
     routeUrl();
 });

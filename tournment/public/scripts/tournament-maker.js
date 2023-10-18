@@ -1,6 +1,7 @@
 import { replaceUrl, routeUrl, pushUrl, clearPageView } from "./routing-util.js";
 import { nanoid } from "https://cdn.jsdelivr.net/npm/nanoid/nanoid.js";
 import { renderTournament } from "./tournamentView.js";
+
 const firebaseConfig = {
     apiKey: "AIzaSyAgxShC0CFMog7mDRn7U7zp9YyPFJjm9LA",
     authDomain: "tournment-b5ea5.firebaseapp.com",
