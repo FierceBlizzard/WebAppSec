@@ -36,9 +36,7 @@ const url_routes = {
     tournament: (url) => /^\/tournaments\/[\w-]{10}$/.test(url)
 };
 
-let renderHome = function(){
-    // Button to make a tournament
-    //var user = "";
+let renderHome = function() {
     clearPageView();
     $("#magic").html( `
     <h1>Home</h1>
@@ -47,6 +45,7 @@ let renderHome = function(){
     $("#sign-out").on("click", ()=>{
         firebase.auth().signOut().then(
             (result) =>{
+                $("#display-user").text("Not Logged In");
                 replaceUrl("/login");
             },
             (error) => {
@@ -54,9 +53,6 @@ let renderHome = function(){
             }
         );;
     });
-   // $("#magic").innerHTML = `<Button id="create-tournament">Create Tournament</Button>`;
-    //$("#create-button").on("click", createTournament);
-    //renderTournamentList();
 }
 
 //log in 
@@ -89,11 +85,22 @@ function routeUrl() {
     }
 }
 
+firebase.auth().onAuthStateChanged((user) => {
+    if(user){
+        $("#display-user").text(user.displayName);
+    }else{
+        replaceUrl("/login");
+        routeUrl();
+    }
+});
 
 addEventListener("DOMContentLoaded", () => {
     routeUrl();
 });
 
 addEventListener("popstate", () => {
-    routeUrl();
+    if(!firebase.auth().currentUser){
+        replaceUrl("/login");
+        routeUrl();
+    }
 });
