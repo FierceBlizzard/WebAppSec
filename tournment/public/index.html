@@ -5,6 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Welcome to Bracket Breaker</title>
+  <body>
+    <div id="display-user">Not Logged In</div>
+    <button id="sign-out-button" style="visibility: hidden;" >Sign Out</button>
+    <div id="magic">
+    </div>
+  </body>
   <!-- include only the Firebase features as you need -->
   <script defer type="module" src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-app-compat.js"></script>
   <script defer type="module" src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-auth-compat.js"></script>
@@ -14,20 +20,12 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css" />
   
-  <script defer src="/scripts/routing-util.js"></script>
-  <!---<script defer src="/scripts/tournament-maker.js"></script>
-  <script defer src="/scripts/auth.js"></script>
-  <script defer src="/scripts/tournamentView.js"></script> --> 
+  <script type="module" src="/scripts/routing-util.js"></script>
+  <!---<script defer src="/scripts/tournamentView.js"></script> 
+  <script defer src="/scripts/tournament-maker.js"></script>--> 
 
 
   <style media="screen" src="/style/style.css"></style>
 </head>
-
-<body>
-  <div id="message">
-    <h2 id="magic-header">Welcome</h2>
-    <div id="magic"></div>
-  </div>
-</body>
 
 </html>

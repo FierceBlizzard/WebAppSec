@@ -2,20 +2,6 @@ import { replaceUrl, routeUrl, pushUrl, clearPageView } from "./routing-util.js"
 import { nanoid } from "https://cdn.jsdelivr.net/npm/nanoid/nanoid.js";
 import { renderTournament } from "./tournamentView.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAgxShC0CFMog7mDRn7U7zp9YyPFJjm9LA",
-    authDomain: "tournment-b5ea5.firebaseapp.com",
-    databaseURL: "https://tournment-b5ea5-default-rtdb.firebaseio.com",
-    projectId: "tournment-b5ea5",
-    storageBucket: "tournment-b5ea5.appspot.com",
-    messagingSenderId: "453497938659",
-    appId: "1:453497938659:web:07123d26dbb7c823fadbd6",
-    measurementId: "G-VRVKVYJBPX"
-  };
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
 export class Tournmanet {
     constructor(name, start_date, end_date){
         this.id = nanoid(10);
@@ -47,7 +33,7 @@ let postTournament = function (tournament){
 /**
  * Setting up the tournament maker form
  */
-export let createTournament = function(){
+let createTournament = function(){
     clearPageView();
     pushUrl("/create_tournament");
     const form = document.createElement("form");
@@ -90,7 +76,7 @@ export let createTournament = function(){
     }
 }
 
-export let getTournament = function (id){
+let getTournament = function (id){
     return firebase.database().ref(`/tournaments/${id}`).get();
 }
 
@@ -102,7 +88,7 @@ export let removeTournament = function (id) {
     firebase.database().ref(`/tournaments/${id}`);
 }
 
-export let cardMaker = function(id){
+let cardMaker = function(id){
     let card = document.createElement("div");
 
     card.innerHTML = `
@@ -119,7 +105,7 @@ export let cardMaker = function(id){
     });
 }
 
-export let renderTournamentList = function (){
+let renderTournamentList = function (){
     getTournamentList().then(result => {
         let tournament_list = [];
         if(result.val()){
@@ -132,20 +118,20 @@ export let renderTournamentList = function (){
 
 }
 
-export let addPlayer = function(name, id){
+let addPlayer = function(name, id){
     let newPlayer = new Player(name);
     let tournament = getTournament(id);
     tournament.players.append(newPlayer);
     postTournament(tournament);
 }
 
-export let removePlayer = function(name, id){
+let removePlayer = function(name, id){
     let tournament = getTournament(id);
     tournament.players.filter(player => player.name != name);
     postTournament(tournament);
 }
 
-export let updatePlayerScore = function(name, id, score){
+let updatePlayerScore = function(name, id, score){
     let tournament = getTournament(id);
     let updated_players = tournament.players.filter(player => player.name != name);
     let updated_player = Player(name, score);
