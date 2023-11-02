@@ -1,34 +1,18 @@
-/**
-import { createTournament, renderTournamentList } from "./tournament-maker";
-import { renderTournament } from "./tournamentView";
-*/
-const firebaseConfig = {
-    apiKey: "AIzaSyAgxShC0CFMog7mDRn7U7zp9YyPFJjm9LA",
-    authDomain: "tournment-b5ea5.firebaseapp.com",
-    databaseURL: "https://tournment-b5ea5-default-rtdb.firebaseio.com",
-    projectId: "tournment-b5ea5",
-    storageBucket: "tournment-b5ea5.appspot.com",
-    messagingSenderId: "453497938659",
-    appId: "1:453497938659:web:07123d26dbb7c823fadbd6",
-    measurementId: "G-VRVKVYJBPX"
-  };
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+import { createTournament } from "./tournament-maker.js";
 
 /**
  * Clears the page
  */
-export let clearPageView = () => $("#magic").innerHTML = "";
+let clearPageView = () => $("#magic").innerHTML = "";
 /**
  * Change the URL to the path and adds to history so you can go back
  */
-export let pushUrl = (path) => history.pushState(path, "", path);
+let pushUrl = (path) => history.pushState(path, "", path);
 
 /**
  * Changes the url to the given path but not added to browser history
  */
-export let replaceUrl = (path) => history.replaceState(path, "", path);
+let replaceUrl = (path) => history.replaceState(path, "", path);
 
 const url_routes = {
     login: (url) => /^\/login$/.test(url),
@@ -36,11 +20,12 @@ const url_routes = {
     tournament: (url) => /^\/tournaments\/[\w-]{10}$/.test(url)
 };
 
-let renderHome = function() {
+function renderHome() {
     clearPageView();
     $("#magic").html( `
     <h1>Home</h1>
-    <Button id=sign-out>Sign Out</Button>
+    <Button id="sign-out">Sign Out</Button>
+    <Button id="create-tournament">Create Tournament</Button>
     `);
     $("#sign-out").on("click", ()=>{
         firebase.auth().signOut().then(
@@ -51,12 +36,13 @@ let renderHome = function() {
             (error) => {
                 console.log(error);
             }
-        );;
+        );
     });
+    $("#create-tournament").on("click", createTournament);
 }
 
 //log in 
-let renderLogin = function(){
+function renderLogin(){
     clearPageView();
     var provider = new firebase.auth.GoogleAuthProvider();
     $("#magic").html(`
@@ -74,7 +60,7 @@ let renderLogin = function(){
  */
 
 
-function routeUrl() {
+function routeUrl(){
     const path = document.location.pathname;
     if (url_routes.login(path)) {
         renderLogin();
