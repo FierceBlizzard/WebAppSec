@@ -1,4 +1,4 @@
-import { createTournament } from "./tournament-maker.js";
+import { createTournament, renderTournamentList } from "./tournament-maker.js";
 
 /**
  * Clears the page
@@ -16,7 +16,7 @@ let replaceUrl = (path) => history.replaceState(path, "", path);
 
 const url_routes = {
     login: (url) => /^\/login$/.test(url),
-    create_tournament: (url) => /^\/tournaments\/create$/.test(url),
+    create_tournament: (url) => /^\/tournament-create$/.test(url),
     tournament: (url) => /^\/tournaments\/[\w-]{10}$/.test(url)
 };
 
@@ -38,7 +38,11 @@ function renderHome() {
             }
         );
     });
-    $("#create-tournament").on("click", createTournament);
+    $("#create-tournament").on("click", ()=>{
+        replaceUrl("/create-tournament");
+        createTournament();
+    });
+    renderTournamentList();
 }
 
 //log in 
@@ -65,8 +69,10 @@ function routeUrl(){
     if (url_routes.login(path)) {
         renderLogin();
         // Perform actions for the login route.
-    } else {
-        replaceUrl("/home");
+    }else if(url_routes.create_tournament(path)){
+        createTournament();
+    }
+    else {
         renderHome();
     }
 }

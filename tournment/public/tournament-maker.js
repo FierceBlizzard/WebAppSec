@@ -11,6 +11,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+let replaceUrl = (path) => history.replaceState(path, "", path);
 
 export class Tournament {
     constructor(name, start_date, end_date){
@@ -45,7 +46,7 @@ function getTournament(id){
 }
 
 export function getTournamentList() {
-    return firebase.database().ref("/tournaments").get();
+    return firebase.database().ref("tournaments").get();
 }
 
 function  removeTournament(id) {
@@ -105,6 +106,8 @@ export function createTournament(){
         if (start_date > current_date && end_date > current_date && end_date > start_date) {
           const newTourn = new Tournament(tournamentName, start_date, end_date);
           firebase.database().ref(`tournaments`).push(newTourn);
+          replaceUrl("/home");
+          document.location.reload();
         } else {
           console.log(current_date);
           console.log(start_date);
@@ -116,15 +119,35 @@ export function createTournament(){
 
 
 export function renderTournamentList(){
-    let tournaments = getTournamentList().orderBy('creator_uid').equalTo(`${firebase.auth().currentUser.uid}`);
-    tournaments.forEach(function(tournament){
-        $("magic").append(`
+    // Get a reference to the "tournaments" collection
+    const tournamentsRef = firebase.database().ref("tournaments");
+
+    // Fetch the data
+    tournamentsRef.once("value").then((snapshot) => {
+        // The snapshot contains the data from the "tournaments" collection
+        const tournaments = snapshot.val();
+
+        // Process and use the retrieved data
+        if (tournaments) {
+        // Loop through the tournaments and do something with each one
+            Object.keys(tournaments).forEach((tournamentId) => {
+                const tournament = tournaments[tournamentId];
+                console.log(tournament);
+                $("#magic").append(`<div id=${tournament.name} class="box">${tournament.name}</div>`); });
+        } else {
+            console.log("No tournaments found.");
+        }
+        }).catch((error) => {
+            console.error("Error getting tournaments:", error);
+    });
+   
+    /*tournaments.forEach(function(tournament){
+        $("#magic").append(`
             <div id=${tournament.name} class="card">
                 <div id=${tournament.name}2 class="container">
                     <h3>${tournament.name}</h3>
                 </div>
             </div>
         `);
-
-    });
+    });*/
 }

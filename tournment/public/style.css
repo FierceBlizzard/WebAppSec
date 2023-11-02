@@ -66,19 +66,16 @@ body {
     }
 
     body {
-      border-top: 16px solid #ffa100;
+      border-top: 16px solid #ad08f9;
     }
   }
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 40%;
-  }
-  
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
-  
-  .container {
-    padding: 2px 16px;
+  .box {
+    background-color: rgb(191, 0, 255);
+    text-align: center;
+    color: white;
+    width: 100px;
+    height: 25px;
+    margin: 10px;
+    border: 1px solid #000;
+    cursor: pointer; /* Change the cursor to a pointer when hovering */
   }
