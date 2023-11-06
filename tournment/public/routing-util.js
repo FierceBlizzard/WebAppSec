@@ -1,4 +1,4 @@
-import { createTournament, renderTournamentList } from "./tournament-maker.js";
+import { createTournament, renderTournamentList, renderTournament } from "./tournament-maker.js";
 
 /**
  * Clears the page
@@ -17,7 +17,7 @@ let replaceUrl = (path) => history.replaceState(path, "", path);
 const url_routes = {
     login: (url) => /^\/login$/.test(url),
     create_tournament: (url) => /^\/tournament-create$/.test(url),
-    tournament: (url) => /^\/tournaments\/[\w-]{10}$/.test(url)
+    tournament: (url) => /^\/tournaments\/[\w-]+$/.test(url)
 };
 
 function renderHome() {
@@ -39,10 +39,13 @@ function renderHome() {
         );
     });
     $("#create-tournament").on("click", ()=>{
-        replaceUrl("/create-tournament");
-        createTournament();
+        pushUrl("/create-tournament");
     });
     renderTournamentList();
+    $(document).on("click", ".box", function(){
+        const tournamentId = $(this).attr("id");
+        pushUrl(`/tournaments/${tournamentId}`);
+    });
 }
 
 //log in 
@@ -56,7 +59,6 @@ function renderLogin(){
     $("#login").on("click", ()=>{
         firebase.auth().signInWithRedirect(provider);
         replaceUrl("/home");
-        renderHome();
     });
 }
 /**
@@ -64,15 +66,23 @@ function renderLogin(){
  */
 
 
-function routeUrl(){
+function routeUrl() {
     const path = document.location.pathname;
     if (url_routes.login(path)) {
         renderLogin();
+        console.log("Login url");
         // Perform actions for the login route.
-    }else if(url_routes.create_tournament(path)){
+    } else if (url_routes.create_tournament(path)) {
         createTournament();
-    }
-    else {
+        console.log("create tournament url");
+    } else if (url_routes.tournament(path)) {
+        // No need to extract the tournament ID here
+        const tournamentId = path.split('/').pop();
+        console.log("made it to tournament path: ");
+        console.log(tournamentId);
+        renderTournament(tournamentId);
+    } else {
+        console.log("home url");
         renderHome();
     }
 }
@@ -80,19 +90,20 @@ function routeUrl(){
 firebase.auth().onAuthStateChanged((user) => {
     if(user){
         $("#display-user").text(user.displayName);
+        console.log(user.displayName);
     }else{
         replaceUrl("/login");
         routeUrl();
+        console.log("Not Logged In")
     }
 });
 
-addEventListener("DOMContentLoaded", () => {
+addEventListener("DOMContentLoaded", ()=>{
     routeUrl();
+    console.log("The link has changed");
 });
 
 addEventListener("popstate", () => {
-    if(!firebase.auth().currentUser){
-        replaceUrl("/login");
-        routeUrl();
-    }
+    if(!firebase.auth().currentUser) replaceUrl("/login");
+    routeUrl();    
 });
