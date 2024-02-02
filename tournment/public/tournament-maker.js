@@ -124,7 +124,7 @@ function getDeniedRequests(tid){
     return firebase.database().ref(`/participant-lists/${tid}/denies`).get();
 }
 function createInfoDiv(tournament){
-    $("magic").html(
+    $("#magic").html(
         `        
         <h2>${tournament.name}</h2>
         <h5>${tournament.id}</h5>
